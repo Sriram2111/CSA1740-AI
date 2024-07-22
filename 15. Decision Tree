@@ -1,0 +1,28 @@
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+from sklearn import tree
+import matplotlib.pyplot as plt
+
+# Load the dataset
+PlayTennis = pd.read_csv("E:/Artifical intellgience/decision tree.csv")
+
+# Encode categorical features
+Le = LabelEncoder()
+PlayTennis['outlook'] = Le.fit_transform(PlayTennis['outlook'])
+PlayTennis['temp'] = Le.fit_transform(PlayTennis['temp'])
+PlayTennis['humidity'] = Le.fit_transform(PlayTennis['humidity'])
+PlayTennis['windy'] = Le.fit_transform(PlayTennis['windy'])
+PlayTennis['play'] = Le.fit_transform(PlayTennis['play'])
+
+# Split the data into features and target
+y = PlayTennis['play']
+X = PlayTennis.drop(['play'], axis=1)
+
+# Create and train the decision tree classifier
+clf = tree.DecisionTreeClassifier(criterion='entropy')
+clf = clf.fit(X, y)
+
+# Plot the decision tree
+plt.figure(figsize=(12, 8))
+tree.plot_tree(clf, filled=True, feature_names=X.columns, class_names=['Not Play', 'Play'])
+plt.show()
