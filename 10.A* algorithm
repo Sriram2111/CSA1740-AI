@@ -1,0 +1,38 @@
+import heapq
+
+# Define cities and distances
+cities = [0, 1, 2, 3]
+dis = [
+    [0, 10, 15, 20],
+    [10, 0, 35, 25],
+    [15, 35, 0, 30],
+    [20, 25, 30, 0]
+]
+
+# Initialize the start and goal
+start = cities[0]
+goal = cities[0]
+
+# Initialize the open set (priority queue)
+open_set = []
+heapq.heappush(open_set, (0, start, [start], 0))  # (f_score, current_city, path, g_score)
+
+# A* algorithm to find the shortest path
+while open_set:
+    # Pop the city with the lowest f_score
+    _, current, path, g = heapq.heappop(open_set)
+    
+    # If the path includes all cities, return the complete path and distance
+    if len(path) == len(cities):
+        total_distance = g + dis[current][start]  # Add distance to return to start
+        print("Shortest path:", path + [start])
+        print("Minimum distance:", total_distance)
+        break
+    
+    # Explore neighbors
+    for neighbor in cities:
+        if neighbor not in path:
+            g_score = g + dis[current][neighbor]
+            f_score = g_score + dis[neighbor][goal]  # Heuristic cost estimate
+            heapq.heappush(open_set, (f_score, neighbor, path + [neighbor],g_score))
+
