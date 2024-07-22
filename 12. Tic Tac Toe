@@ -1,0 +1,64 @@
+board = [[" " for _ in range(3)] for _ in range(3)]
+players = ["X", "O"]
+turn = 0
+
+while True:
+    # Print the board
+    for row in board:
+        print("|".join(row))
+        print("-----")
+    
+    player = players[turn % 2]
+    print(f"Player {player}'s turn.")
+    
+    # Get user input
+    row = int(input("Enter the row (0-2): "))
+    col = int(input("Enter the column (0-2): "))
+    
+    # Check if the cell is available
+    if board[row][col] == " ":
+        # Place the player's mark
+        board[row][col] = player
+        
+        # Check for a win
+        win = False
+        
+        # Check rows
+        for r in board:
+            if all([cell == player for cell in r]):
+                win = True
+                break
+        
+        # Check columns
+        if not win:
+            for c in range(3):
+                if all([board[r][c] == player for r in range(3)]):
+                    win = True
+                    break
+        
+        # Check diagonals
+        if not win:
+            if all([board[i][i] == player for i in range(3)]) or all([board[i][2 - i] == player for i in range(3)]):
+                win = True
+        
+        if win:
+            # Print the final board and announce the winner
+            for row in board:
+                print("|".join(row))
+                print("-----")
+            print(f"Player {player} wins!")
+            break
+        
+        # Check for a tie
+        if all([cell != " " for row in board for cell in row]):
+            # Print the final board and announce a tie
+            for row in board:
+                print("|".join(row))
+                print("-----")
+            print("It's a tie!")
+            break
+        
+        # Switch turns
+        turn += 1
+    else:
+        print("That spot is already taken. Try again.")
