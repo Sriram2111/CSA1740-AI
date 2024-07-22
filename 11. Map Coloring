@@ -1,0 +1,51 @@
+regions = ['WA', 'NT', 'SA', 'QLD', 'NSW', 'VIC', 'TAS']
+colors = ['Red', 'Green', 'Blue']
+neighbors = {
+    'WA': ['NT', 'SA'],
+    'NT': ['WA', 'SA', 'QLD'],
+    'SA': ['WA', 'NT', 'QLD', 'NSW', 'VIC'],
+    'QLD': ['NT', 'SA', 'NSW'],
+    'NSW': ['SA', 'QLD', 'VIC'],
+    'VIC': ['SA', 'NSW', 'TAS'],
+    'TAS': ['VIC']
+}
+# Initialize assignments dictionary
+assignments = {}
+
+# Backtracking algorithm
+region_index = 0
+found_solution = False
+
+while not found_solution and region_index < len(regions):
+    current_region = regions[region_index]
+    
+    # Try assigning each color to the current region
+    for color in colors:
+        assignments[current_region] = color
+        
+        # Check if the assignment is valid
+        valid_assignment = True
+        for region, color in assignments.items():
+            for neighbor in neighbors[region]:
+                if assignments.get(neighbor) == color:
+                    valid_assignment = False
+                    break
+            if not valid_assignment:
+                break
+        if valid_assignment:
+            # Move to the next region
+            region_index += 1
+            if region_index == len(regions):
+                # Solution found
+                found_solution = True
+                break
+            else:
+                # Continue with the next region
+                break
+        else:
+            # Remove the invalid assignment
+            del assignments[current_region]
+
+if found_solution:
+    print("Solution found:")
+    print(assignments)
