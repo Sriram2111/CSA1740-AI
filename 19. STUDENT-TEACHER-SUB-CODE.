@@ -1,0 +1,14 @@
+% Define the database
+% student(StudentName, SubjectCode).
+student(alice, math101).
+student(bob, math101).
+student(charlie, cs102).
+student(diana, cs102).
+
+% teacher(TeacherName, SubjectCode).
+teacher(dr_smith, math101).
+teacher(dr_jones, cs102).
+
+% subject(SubjectCode, SubjectName).
+subject(math101, mathematics).
+subject(cs102, computer_science).
