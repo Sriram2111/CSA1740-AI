@@ -1,0 +1,38 @@
+import numpy as np
+
+
+np.random.seed(0)
+
+
+input_size = 2  
+hidden_size = 3  
+output_size = 2  
+
+# Initialize weights and biases
+W1 = np.random.randn(input_size, hidden_size)  # Weights from input layer to hidden layer
+b1 = np.random.randn(hidden_size)               # Biases for hidden layer
+W2 = np.random.randn(hidden_size, output_size)  # Weights from hidden layer to output layer
+b2 = np.random.randn(output_size)               # Biases for output layer
+
+# Define input data
+X = np.array([
+    [0.1, 0.2],
+    [0.4, 0.6],
+    [0.9, 0.8]
+])
+
+# Compute hidden layer activations
+Z1 = np.dot(X, W1) + b1
+A1 = np.maximum(0, Z1)  # ReLU activation
+
+# Compute output layer activations
+Z2 = np.dot(A1, W2) + b2
+
+# Apply softmax activation function
+e_x = np.exp(Z2 - np.max(Z2, axis=1, keepdims=True))  # Subtract max for numerical stability
+A2 = e_x / e_x.sum(axis=1, keepdims=True)  # Softmax
+
+# Print results
+print("Input:\n", X)
+print("\nHidden layer activations (ReLU):\n", A1)
+print("\nOutput layer activations (softmax probabilities):\n", A2)
