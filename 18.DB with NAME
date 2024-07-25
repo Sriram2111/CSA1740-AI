@@ -1,0 +1,10 @@
+% Define the database
+person(john_doe, date(1990, 5, 15)).
+person(jane_smith, date(1985, 10, 25)).
+person(emily_jones, date(2000, 2, 20)).
+person(michael_brown, date(1978, 12, 30)).
+
+% Queries
+% To find the date of birth of a person:
+% ?- person(Name, date(Y, M, D)).
+% Example: ?- person(john_doe, date(Y, M, D)).
