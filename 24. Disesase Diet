@@ -1,0 +1,29 @@
+% Define the dietary recommendations based on diseases
+
+% Disease and recommended diet
+diet(diabetes, low_sugar).
+diet(diabetes, high_fiber).
+diet(hypertension, low_sodium).
+diet(hypertension, high_potassium).
+diet(celiac_disease, gluten_free).
+diet(heart_disease, low_cholesterol).
+diet(heart_disease, high_omega3).
+diet(renal_disease, low_protein).
+diet(renal_disease, low_phosphorus).
+
+% Foods for different dietary restrictions
+foods(low_sugar, [vegetables, lean_meats, whole_grains]).
+foods(high_fiber, [beans, fruits, vegetables, whole_grains]).
+foods(low_sodium, [fresh_fruits, fresh_vegetables, lean_meats]).
+foods(high_potassium, [bananas, oranges, potatoes, spinach]).
+foods(gluten_free, [rice, quinoa, potatoes, fruits, vegetables]).
+foods(low_cholesterol, [oats, beans, apples, nuts]).
+foods(high_omega3, [salmon, flaxseeds, walnuts]).
+foods(low_protein, [vegetables, fruits, rice]).
+foods(low_phosphorus, [fresh_fruits, fresh_vegetables, rice]).
+
+% Define the predicate to suggest dietary recommendations
+suggest_diet(Disease) :-
+    diet(Disease, Restriction),
+    foods(Restriction, Foods),
+    format('For ~w, follow a ~w diet. Recommended foods include: ~w.~n', [Disease, Restriction, Foods]).
