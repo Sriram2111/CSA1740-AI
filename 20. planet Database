@@ -1,0 +1,14 @@
+% Define the database
+% planet(Name, DistanceFromSun, Diameter, Mass).
+% DistanceFromSun is in million kilometers (10^6 km)
+% Diameter is in kilometers (km)
+% Mass is in 10^24 kilograms (10^24 kg)
+
+planet(mercury, 57.9, 4879, 0.33).
+planet(venus, 108.2, 12104, 4.87).
+planet(earth, 149.6, 12756, 5.97).
+planet(mars, 227.9, 6792, 0.642).
+planet(jupiter, 778.6, 142984, 1898).
+planet(saturn, 1433.5, 120536, 568).
+planet(uranus, 2872.5, 51118, 86.8).
+planet(neptune, 4495.1, 49528, 102).
