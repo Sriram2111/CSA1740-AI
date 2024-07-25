@@ -1,0 +1,69 @@
+% Define the knowledge base
+:- dynamic fact/1.
+
+% Initial facts
+fact(fever).
+fact(cough).
+
+% Rules
+rule(flu) :-
+    fact(fever),
+    fact(cough),
+    fact(headache),
+    fact(sore_throat),
+    fact(muscle_ache).
+
+rule(cold) :-
+    fact(cough),
+    fact(sneezing),
+    fact(runny_nose),
+    fact(sore_throat).
+
+rule(allergy) :-
+    fact(sneezing),
+    fact(runny_nose),
+    fact(itchy_eyes).
+
+rule(covid19) :-
+    fact(fever),
+    fact(cough),
+    fact(difficulty_breathing),
+    fact(loss_of_taste_smell),
+    fact(sore_throat).
+
+% Forward chaining algorithm
+forward_chain(Conclusion) :-
+    rule(Conclusion),
+    assert(fact(Conclusion)),
+    write('Derived: '), write(Conclusion), nl,
+    fail.
+
+forward_chain(_) :-
+    write('No more conclusions can be derived.'), nl.
+
+% Query to start the forward chaining process
+start_forward_chaining :-
+    retractall(fact(_)),
+    % Initial facts (can be modified)
+    assert(fact(fever)),
+    assert(fact(cough)),
+    forward_chain(_).
+
+% Query to add a fact
+add_fact(Fact) :-
+    assert(fact(Fact)),
+    write('Added fact: '), write(Fact), nl.
+
+% Query to list all facts
+list_facts :-
+    write('Current facts: '), nl,
+    fact(Fact),
+    write(Fact), nl,
+    fail.
+list_facts.
+
+% Example usage
+% ?- start_forward_chaining.
+% ?- add_fact(sore_throat).
+% ?- start_forward_chaining.
+% ?- list_facts.
