@@ -1,0 +1,65 @@
+% Define symptoms for different conditions
+has_symptom(flu, fever).
+has_symptom(flu, cough).
+has_symptom(flu, headache).
+has_symptom(flu, sore_throat).
+has_symptom(flu, muscle_ache).
+
+has_symptom(cold, cough).
+has_symptom(cold, sneezing).
+has_symptom(cold, runny_nose).
+has_symptom(cold, sore_throat).
+
+has_symptom(allergy, sneezing).
+has_symptom(allergy, runny_nose).
+has_symptom(allergy, itchy_eyes).
+
+has_symptom(covid19, fever).
+has_symptom(covid19, cough).
+has_symptom(covid19, difficulty_breathing).
+has_symptom(covid19, loss_of_taste_smell).
+has_symptom(covid19, sore_throat).
+
+% Define known facts
+symptom(fever).
+symptom(cough).
+% Add more known facts if needed
+
+% Backward chaining rules to diagnose conditions
+diagnose(Condition) :-
+    has_symptom(Condition, Symptom),
+    verify(Symptom),
+    fail.
+diagnose(Condition).
+
+% Verification predicate
+verify(Symptom) :-
+    (   symptom(Symptom)
+    ->  true
+    ;   ask(Symptom),
+        symptom(Symptom)
+    ).
+
+% Predicate to ask the user about a symptom
+ask(Symptom) :-
+    format('Do you have ~w? (yes/no) ', [Symptom]),
+    read(Response),
+    (   Response == yes
+    ->  assert(symptom(Symptom))
+    ;   assert(not(symptom(Symptom))), fail).
+
+% Query to list all known symptoms
+list_symptoms :-
+    findall(Symptom, symptom(Symptom), Symptoms),
+    format('Known symptoms: ~w~n', [Symptoms]).
+
+% Query to clear all known symptoms
+clear_symptoms :-
+    retractall(symptom(_)),
+    retractall(not(_)),
+    write('Cleared all known symptoms.').
+
+% Example queries:
+% ?- diagnose(flu).
+% ?- list_symptoms.
+% ?- clear_symptoms.
