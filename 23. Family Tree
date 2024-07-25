@@ -1,0 +1,31 @@
+% Define parent-child relationships
+parent(john, alice).      % John is a parent of Alice
+parent(john, bob).        % John is a parent of Bob
+parent(mary, alice).      % Mary is a parent of Alice
+parent(mary, bob).        % Mary is a parent of Bob
+parent(alice, charlie).   % Alice is a parent of Charlie
+parent(bob, diana).       % Bob is a parent of Diana
+parent(bob, emma).        % Bob is a parent of Emma
+
+% Define the family relationships
+% Sibling relationship
+sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.
+
+% Grandparent relationship
+grandparent(GP, GC) :- parent(GP, P), parent(P, GC).
+
+% Aunt/Uncle relationship
+aunt_uncle(AU, N) :- sibling(AU, P), parent(P, N).
+
+% Cousin relationship
+cousin(C1, C2) :- parent(P1, C1), parent(P2, C2), sibling(P1, P2).
+
+% Define the family tree
+% Define family members
+family_member(john).
+family_member(mary).
+family_member(alice).
+family_member(bob).
+family_member(charlie).
+family_member(diana).
+family_member(emma).
