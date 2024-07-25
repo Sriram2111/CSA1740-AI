@@ -1,0 +1,39 @@
+% Define the initial state
+initial_state(state(at(monkey, ground), at(banana, ceiling), holding(nothing))).
+
+% Define the goal state
+goal_state(state(at(monkey, ceiling), at(banana, ceiling), holding(banana))).
+
+% Define the actions and their effects
+move_up(state(at(monkey, ground), at(banana, ceiling), holding(nothing)),
+        state(at(monkey, ceiling), at(banana, ceiling), holding(nothing))).
+
+move_down(state(at(monkey, ceiling), at(banana, ceiling), holding(nothing)),
+          state(at(monkey, ground), at(banana, ceiling), holding(nothing))).
+
+grab_banana(state(at(monkey, ceiling), at(banana, ceiling), holding(nothing)),
+            state(at(monkey, ceiling), at(banana, ceiling), holding(banana))).
+
+% Define the transitions between states
+transition(State1, Action, State2) :-
+    move_up(State1, State2),
+    Action = move_up.
+
+transition(State1, Action, State2) :-
+    move_down(State1, State2),
+    Action = move_down.
+
+transition(State1, Action, State2) :-
+    grab_banana(State1, State2),
+    Action = grab_banana.
+
+% Define the plan that solves the problem
+solve(State, [], State) :-
+    goal_state(State).
+
+solve(State1, [Action|RestActions], State) :-
+    transition(State1, Action, State2),
+    solve(State2, RestActions, State).
+
+% Query to find the solution
+% ?- initial_state(Start), solve(Start, Actions, End).
