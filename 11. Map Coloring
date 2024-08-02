@@ -9,43 +9,33 @@ neighbors = {
     'VIC': ['SA', 'NSW', 'TAS'],
     'TAS': ['VIC']
 }
-# Initialize assignments dictionary
-assignments = {}
 
-# Backtracking algorithm
-region_index = 0
-found_solution = False
+color_map = {}
 
-while not found_solution and region_index < len(regions):
-    current_region = regions[region_index]
-    
-    # Try assigning each color to the current region
+def assign_colors(region_index):
+    if region_index == len(regions):
+        return True
+
+    region = regions[region_index]
+
     for color in colors:
-        assignments[current_region] = color
+        valid = True
+        for neighbor in neighbors[region]:
+            if color_map.get(neighbor) == color:
+                valid = False
+                break
         
-        # Check if the assignment is valid
-        valid_assignment = True
-        for region, color in assignments.items():
-            for neighbor in neighbors[region]:
-                if assignments.get(neighbor) == color:
-                    valid_assignment = False
-                    break
-            if not valid_assignment:
-                break
-        if valid_assignment:
-            # Move to the next region
-            region_index += 1
-            if region_index == len(regions):
-                # Solution found
-                found_solution = True
-                break
-            else:
-                # Continue with the next region
-                break
-        else:
-            # Remove the invalid assignment
-            del assignments[current_region]
+        if valid:
+            color_map[region] = color
+            if assign_colors(region_index + 1):
+                return True
+            color_map.pop(region)
+    
+    return False
 
-if found_solution:
-    print("Solution found:")
-    print(assignments)
+
+if assign_colors(0):
+    for region, color in color_map.items():
+        print(f"{region} -> {color}")
+else:
+    print("No solution exists")
