@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Shopping</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        header, footer { background: #333; color: white; text-align: center; padding: 1em 0; }
+        .container { padding: 20px; }
+        .product, .cart, .checkout { border: 1px solid #ddd; padding: 10px; margin: 10px 0; }
+        .product { display: inline-block; width: 30%; box-sizing: border-box; }
+        .product img { max-width: 100%; }
+        ul { list-style-type: none; padding: 0; }
+    </style>
+</head>
+<body>
+    <header><h1>Online Shopping</h1></header>
+    <div class="container">
+        <h2>Products</h2>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/314Rp+8XKWL._AC_SR300,300.jpg" alt="Mobile">
+            <h3>Mobile</h3>
+            <p>$300.00</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/61+r3+JstZL.AC_UF1000,1000_QL80.jpg" alt="Laptop">
+            <h3>TV</h3>
+            <p>$500.00</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/61p77NOXw1L.SX679.jpg" alt="Laptop">
+            <h3>Laptop</h3>
+            <p>$800.00</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="cart">
+            <h2>Shopping Cart</h2>
+            <ul><li>Mobile - $300.00 <button>Remove</button></li></ul>
+            <p>Total: $300.00</p>
+        </div>
+        <div class="checkout">
+            <h2>Checkout</h2>
+            <form>
+                <ul>
+                    <li><label>Name: <input type="text" required></label></li>
+                    <li><label>Address: <input type="text" required></label></li>
+                    <li><label>Credit Card: <input type="text" required></label></li>
+                </ul>
+                <button type="submit">Place Order</button>
+            </form>
+        </div>
+    </div>
+    <footer>&copy; 2024 Online Shopping</footer>
+</body>
+</html>
